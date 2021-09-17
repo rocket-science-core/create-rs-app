@@ -14,7 +14,7 @@ inquirer
       type: "list",
       message: "Pick a language:",
       name: "app_language",
-      choices: ["typescript", "strict-typescript"],
+      choices: ["typescript", "strict-typescript", "javascript (ES6+)"],
       default: "typescript",
     },
   ])
@@ -24,6 +24,9 @@ inquirer
     switch (answer.app_language) {
       case "strict-typescript":
         branch = "strict-typescript";
+        break;
+      case "javascript (ES6+)":
+        branch = "javascript";
         break;
       default:
         branch = "main";
