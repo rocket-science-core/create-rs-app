@@ -1,16 +1,30 @@
 {
   "name": "create-rs-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Quickly create rocket-science applications",
+  "main": "src/index.js",
+  "bin": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "rocket-science",
+    "create-rs-app",
+    "crsa",
+    "react"
+  ],
+  "author": "Austin Howard",
+  "license": "MIT",
   "dependencies": {
     "inquirer": "^8.1.5",
     "shelljs": "^0.8.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahoward2/create-rs-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ahoward2/create-rs-app/issues"
+  },
+  "homepage": "https://github.com/ahoward2/create-rs-app#readme"
 }
