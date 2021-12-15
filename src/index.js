@@ -23,6 +23,12 @@ inquirer
       name: "federated_port",
       default: "3001",
     },
+    {
+      type: "input",
+      message: "Pick a port to serve your storybook:",
+      name: "storybook_port",
+      default: "6006",
+    },
   ])
   .then((answer) => {
     process(answer);

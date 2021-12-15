@@ -25,7 +25,7 @@ async function process(answer) {
   );
   shell.cd(answer.app_name);
 
-  changePorts(answer.federated_port)
+  changePorts(answer.federated_port, answer.storybook_port)
     .then(() => {
       if (branch !== "main") {
         shell.exec(`git checkout -b main`);

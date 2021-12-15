@@ -2,37 +2,31 @@
 const fs = require("fs").promises;
 
 /**
- * Reads the package.json file and returns the contents as a string.
- * @returns {Promise<string>} - Returns the contents of the package.json file.
- */
-async function readPackageJson() {
-  const pathToPackageJson = `${process.cwd()}/package.json`;
-
-  try {
-    const packageJson = await fs.readFile(pathToPackageJson).catch((err) => {
-      throw err;
-    });
-    return packageJson;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-/**
- * Creates a new package.json file with the new server port for federated script.
+ * Reads package.json of cloned rocker-science application and creates a new package.json
+ * file with the new server port for federated script.
  * @param {string} newServerPort - The new server port to be used.
  * @returns {object} - Returns the new package.json object.
  */
-async function createNewPackageJson(newServerPort) {
+async function createNewPackageJson(federatedServerPort, storybookPort) {
   const portRegex = /\d+$/;
-  const serverPort = newServerPort || "3001";
+  const pathToPackageJson = `${process.cwd()}/package.json`;
 
   try {
-    const oldPackage = await readPackageJson();
+    const oldPackage = await fs.readFile(pathToPackageJson).catch((err) => {
+      throw err;
+    });
+    // Locates federate script in package.json and replaces with new port
     let packageJson = JSON.parse(oldPackage);
     let fedServerScript = packageJson.scripts.federate;
-    let newServerScript = fedServerScript.replace(portRegex, serverPort);
+    let newServerScript = fedServerScript.replace(
+      portRegex,
+      federatedServerPort
+    );
     packageJson.scripts.federate = newServerScript;
+    // Locates storybook script in package.json and replaces with new port
+    let storybookScript = packageJson.scripts.storybook;
+    let newStorybookScript = storybookScript.replace(portRegex, storybookPort);
+    packageJson.scripts.storybook = newStorybookScript;
     return packageJson;
   } catch (err) {
     console.log(err);
@@ -65,9 +59,14 @@ async function writeNewPackageJson(newPackage) {
  * Updates the package.json file with the new server port for federated script.
  * @param {string} newServerPort
  */
-async function changePorts(newServerPort) {
+async function changePorts(newFederatedServerPort, newStorybookPort) {
+  const federatedServerPort = newFederatedServerPort || "3001";
+  const storybookPort = newStorybookPort || "6006";
   try {
-    const newPackage = await createNewPackageJson(newServerPort);
+    const newPackage = await createNewPackageJson(
+      federatedServerPort,
+      storybookPort
+    );
     await writeNewPackageJson(newPackage);
   } catch (err) {
     console.log(err);
