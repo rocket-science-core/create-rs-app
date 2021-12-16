@@ -2,7 +2,51 @@
 const fs = require("fs").promises;
 
 /**
- * Reads package.json of cloned rocker-science application and creates a new package.json
+ *  Requires rs.config.js from newly cloned rocket-science application,
+ *  then updates the server port value.
+ * @param {string} federatedServerPort - The new server port to be used.
+ * @returns {object} - Returns the new rs.config.js object.
+ */
+async function createNewConfigFile(federatedServerPort) {
+  try {
+    const configFile = require(`${process.cwd()}/rs.config.js`);
+    configFile.federatedServerPort = federatedServerPort;
+    return configFile;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Writes the new rs.config.js file to the newly cloned rocket-science
+ * app.
+ * @param {object} newConfigFile - A new rs.config.js object.
+ */
+async function writeNewConfigFile(newConfigFile) {
+  const pathToConfigFile = `${process.cwd()}/rs.config.js`;
+  let configFile = "";
+
+  try {
+    for (const [key, value] of Object.entries(newConfigFile)) {
+      configFile = configFile.concat(`\t${key}: "${value}",\n`);
+    }
+
+    await fs.writeFile(
+      pathToConfigFile,
+      Buffer.from(`module.exports = { \n ${configFile}};`),
+      (err) => {
+        if (err) {
+          throw err;
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Reads package.json of cloned rocket-science application and creates a new package.json
  * file with the new server port for federated script.
  * @param {string} newServerPort - The new server port to be used.
  * @returns {object} - Returns the new package.json object.
@@ -68,6 +112,8 @@ async function changePorts(newFederatedServerPort, newStorybookPort) {
       storybookPort
     );
     await writeNewPackageJson(newPackage);
+    const newConfigFile = await createNewConfigFile(federatedServerPort);
+    await writeNewConfigFile(newConfigFile);
   } catch (err) {
     console.log(err);
   }
