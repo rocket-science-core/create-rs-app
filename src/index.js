@@ -14,7 +14,7 @@ inquirer
       type: "list",
       message: "Pick a language:",
       name: "app_language",
-      choices: ["typescript", "strict-typescript", "javascript (ES6+)"],
+      choices: ["typescript", "javascript (ES6+)"],
       default: "typescript",
     },
     {

@@ -10,9 +10,6 @@ async function process(answer) {
   let branch = "";
 
   switch (answer.app_language) {
-    case "strict-typescript":
-      branch = "strict-typescript";
-      break;
     case "javascript (ES6+)":
       branch = "javascript";
       break;
