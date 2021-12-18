@@ -28,7 +28,8 @@ async function writeNewConfigFile(newConfigFile) {
 
   try {
     for (const [key, value] of Object.entries(newConfigFile)) {
-      configFile = configFile.concat(`\t${key}: "${value}",\n`);
+      let stringValue = typeof value === 'string' ? `"${value}"` : value;
+      configFile = configFile.concat(`\t${key}: ${stringValue},\n`);
     }
 
     await fs.writeFile(
