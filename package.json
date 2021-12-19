@@ -1,6 +1,6 @@
 {
   "name": "create-rs-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Quickly create rocket-science applications",
   "main": "src/index.js",
   "bin": "src/index.js",
@@ -21,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahoward2/create-rs-app.git"
+    "url": "git+https://github.com/rocket-science-core/create-rs-app.git"
   },
   "bugs": {
-    "url": "https://github.com/ahoward2/create-rs-app/issues"
+    "url": "https://github.com/rocket-science-core/create-rs-app/issues"
   },
-  "homepage": "https://github.com/ahoward2/create-rs-app#readme"
+  "homepage": "https://github.com/rocket-science-core/create-rs-app#readme"
 }
