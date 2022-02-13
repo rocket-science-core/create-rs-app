@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-const inquirer = require("inquirer");
-const { process } = require("./process");
+import inquirer from "inquirer";
+import { processAnswer } from "./process";
 
 inquirer
   .prompt([
@@ -31,5 +31,5 @@ inquirer
     },
   ])
   .then((answer) => {
-    process(answer);
+    processAnswer(answer);
   });

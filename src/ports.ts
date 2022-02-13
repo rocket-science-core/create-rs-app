@@ -1,4 +1,3 @@
-// const shell = require("shelljs");
 const fs = require("fs").promises;
 
 /**
@@ -28,7 +27,7 @@ async function writeNewConfigFile(newConfigFile) {
 
   try {
     for (const [key, value] of Object.entries(newConfigFile)) {
-      let stringValue = typeof value === 'string' ? `"${value}"` : value;
+      let stringValue = typeof value === "string" ? `"${value}"` : value;
       configFile = configFile.concat(`\t${key}: ${stringValue},\n`);
     }
 
@@ -103,6 +102,7 @@ async function writeNewPackageJson(newPackage) {
 /**
  * Updates the package.json file with the new server port for federated script.
  * @param {string} newServerPort
+ * @param {string} storybookPort
  */
 async function changePorts(newFederatedServerPort, newStorybookPort) {
   const federatedServerPort = newFederatedServerPort || "3001";
@@ -119,4 +119,4 @@ async function changePorts(newFederatedServerPort, newStorybookPort) {
     console.log(err);
   }
 }
-module.exports = { changePorts };
+export { changePorts };

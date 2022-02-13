@@ -24,11 +24,11 @@ async function successMessage(answer) {
   );
   shell.echo(``);
   shell.echo(
-    `5. git remote set-url origin https://github.com/user/repo.git (your remote repository)`
+    `5. git remote add origin https://github.com/user/repo.git (your remote repository)`
   );
   shell.echo(`6. git remote -v (verify new remote)`);
   shell.echo(`7. git push -u origin main`);
   shell.echo(``);
 }
 
-module.exports = { successMessage };
+export { successMessage };
